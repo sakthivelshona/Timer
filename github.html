@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+
+
+h1,h2{
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 50px;
+
+}
+
+#ttt{
+    display: inline-block;
+    border: 3px solid blue;
+    padding: 50px;
+    width: 70%;
+    height: 40%;
+    border-radius: 8px;    
+    
+}
+
+.ttimer{
+    display: flex;
+    justify-content: space-around;
+}
+label{
+    font-size: 20px;
+}
+
+input{
+    width: 80%;
+    padding: 10px;
+}
+
+
+
+
+table,td{
+    border: 3px solid black;
+    height: 100px;
+    width:50%;
+}
+th{
+    border: 3px solid black;
+    padding: 10px;
+
+
+}
+
+#btn1,#btn2{
+    margin: 0;
+    position: absolute;
+    left: 37%;
+    color: white;
+    padding: 10px;
+    border: 1px solid blue;
+    border-radius: 10px;
+    background-color: blue;
+}
+
+#btn1:hover,#btn2:hover{
+    background-color: darkblue;
+}
+
+#whole{
+    justify-content: space-around;
+}
+#timer{
+    padding: 30px;
+    border: 2px solid blue;
+    text-align: center;
+    font-size: 30px;
+    width: 60%;
+}
+
+#start,#stop,#reset{
+
+    color: white;
+    padding: 10px;
+    border: 1px solid blue;
+    border-radius: 10px;
+    background-color: blue;
+}
+
+
+
+
+
+
+
+
+</style>
+<body>
+
+    <h1>Welcome All</h1>
+
+
+    
+<div id="whole">
+
+    <!--Timer-->
+    <h2>Timer start and stop</h2>
+    
+    <div class="ttimer">
+    <div id="timer">
+        <span id="st">00:00:00</span>
+        <br><br>
+    
+    <button onclick="start()" id="start">Start</button>
+    <button onclick="stop()" id="stop">Stop</button>
+    <button onclick="reset()" id="reset">Reset</button>
+    
+    <br><br><br>
+</div>
+    </div>
+    </div>
+    
+<!--Table-->
+<h2>Add entries to table</h2>
+
+<div id="ttt">
+<label for="name">Name: </label><br>
+<input type="text" id="name" placeholder="Enter your name"><br><br>
+
+<label for="name">Description: </label><br>
+<input type="text" id="desc" placeholder="Enter the details"><br><br>
+
+<button onclick="clicked()" id="btn1">Add to Table</button>
+
+</div>
+
+<br><br><br>
+
+<div id="ft">
+<table>
+
+    <tr>
+        <th>Task</th>
+        <th>Description</th>
+    </tr>
+
+    <tr>
+        <td  id="task1"></td>
+        <td  id="description1"></td>
+    </tr>
+
+    <tr>
+        <td  id="task2"></td>
+        <td  id="description2"></td>
+    </tr>
+    
+</table>
+</div>
+
+
+<br><br><br><br><br><br><br><br>
+
+
+
+
+<!--Add items to table once  they are clicked-->
+
+<h2>Add items to table once  they are clicked</h2>
+
+<div id="ttt">
+<label for="name">Name: </label><br>
+<input type="text" id="name1"><br><br>
+
+<label for="name">Description: </label><br>
+<input type="text" id="desc1"><br><br>
+
+
+<button onclick="add()" id="btn2">Add to Table</button>
+
+</div>
+
+<br><br><br>
+<table>
+
+    <tr>
+        <th>Task</th>
+        <th>Description</th>
+        <th>Timer</th>
+    </tr>
+
+    <tbody id="value">
+
+    </tbody>
+</table>
+<br><br><br><br><br><br><br><br>
+
+
+
+
+
+
+<script>
+
+    
+
+//Add text to table
+
+function clicked(){
+    var name = document.getElementById('name')
+    var des = document.getElementById('desc')
+    console.log('Clicked ')
+
+    var task1 = document.getElementById('task1')
+    var description1 = document.getElementById('description1')
+
+    a = name.value
+    b = des.value
+
+    task1.innerHTML = a
+    description1.innerHTML = b
+}
+
+function add(){
+    var name1 = document.getElementById('name1')
+    var des1 = document.getElementById('desc1')
+    st =  document.getElementById('st')
+    stop()
+
+    a = name1.value
+    b = des1.value
+    c = st.innerText    // innerhtml - seconds value la iruku
+
+    value.innerHTML += `
+    <tr>
+        <td>${a}</td>
+        <td>${b}</td>
+        <td>${c}</td>
+    </tr>
+    `
+    reset()
+
+}
+
+
+
+
+// function start(){
+
+    
+//     setInterval(() => {
+//         for(var i=0;i<=1000;i++){
+//             real.innerHTML =i
+//             var st = document.getElementById('st')
+//             var real = st.value
+//         }
+
+//     }, 2000);
+// }
+
+
+
+
+//Timer
+
+let second = 0;             //global declare - access anywhere
+let minutes =0;
+let hour=0;
+let vv;
+let st = document.getElementById('st')
+
+function start(){       
+ vv = setInterval(()=>{
+        second++;
+
+        if(second>59){
+            second=0;       //sec - 0
+            minutes++;      //min - increment
+        }
+
+        if(minutes>59){
+            minutes=0
+            hour++;
+        }
+        // if(minutes>99)
+        // alert('Time out')
+
+        st.innerText=second                                 //Single value - 9
+        st.innerText  = second.toString().padStart(2,'0')   //Single value - 09
+        st.innerText =`
+        ${hour.toString().padStart(2,'0')}:${minutes.toString().padStart(2,'0')}:${second.toString().padStart(2,'0')}
+        
+        `
+        //hour : minute : seconds
+
+},10)
+}
+
+
+//Stop timer
+function stop(){        
+    clearInterval(vv)
+    }
+
+
+//Reset Timer
+function reset(){
+    clearInterval(vv)
+    second = 0;
+    st.innerText = second;
+
+}
+
+//Add
+
+
+//minutes =0, if sec>59 minutes++
+    
+</script>
+
+
+    
+</body>
+</html>
